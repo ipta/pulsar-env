@@ -1,4 +1,4 @@
-name: TestIPTA
+name: IPTA_Env
 channels:
   - demorest
   - conda-forge
