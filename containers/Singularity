@@ -1,0 +1,128 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+%labels
+    DESCRIPTION Singularity image with tempo2, libstempo, enetrprise.
+
+%environment
+    #Container runtime environment variables
+    export SINGULARITY_SHELL=/bin/bash
+    export XDG_CACHE_HOME=/opt/pulsar/
+    export XDG_CONFIG_HOME=/opt/pulsar/
+    export DEBIAN_FRONTEND=noninteractive
+    export LC_ALL=C
+    export LC_NUMERIC=en_GB.UTF-8
+
+    export PGPLOT_DIR=/usr/lib/pgplot5
+    export PGPLOT_FONT=/usr/lib/pgplot5/grfont.dat
+
+    export TEMPO2=/opt/pulsar/tempo2
+    export TEMPO2_PREFIX=${TEMPO2}
+    export PATH=$PATH:$TEMPO2/bin
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TEMPO2_PREFIX
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TEMPO2_PREFIX/lib
+    export C_INCLUDE_PATH=$C_INCLUDE_PATH:$TEMPO2_PREFIX/include
+
+
+    export PYTHONPATH=/usr/lib/python3.10/site-packages:/usr/local/lib/python3.10/dist-packages:/usr/lib/python3/dist-packages:/usr/lib/python3.10/lib-dynload
+    
+%post
+    export DEBIAN_FRONTEND=noninteractive
+
+    mkdir -p ${SINGULARITY_ROOTFS}/Workspace
+    mkdir -p ${SINGULARITY_ROOTFS}/DataStorage
+    mkdir -p ${XDG_CACHE_HOME}/.astropy
+    mkdir -p ${XDG_CONFIG_HOME}/.astropy
+
+    export TEMPO2=/opt/pulsar/tempo2
+    export TEMPO2_PREFIX=${TEMPO2}
+    export PATH=$TEMPO2/bin:${TEMPO2}:$PATH
+
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${TEMPO2}
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${TEMPO2}/lib
+
+    export TZ=Europe/Rome
+
+    export PGPLOT_DIR=/usr/lib/pgplot5
+    export PGPLOT_FONT=/usr/lib/pgplot5/grfont.dat
+
+
+    apt-get -y update
+    apt-get -y install automake autoconf libtool cmake make build-essential
+    apt-get -y --no-install-recommends install build-essential wget cmake make libfftw3* zlib1g-dev libblas3 libblas-dev liblapack3 liblapack-dev git # gcc-7 g++-7 g++-8 gcc-8
+    apt-get -y --no-install-recommends install gfortran dpkg-dev libc6-dev libc-dev sed tmux emacs-nox vim libgsl27 libgslcblas0 libgsl-dev 
+    apt-get -y --no-install-recommends install libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev liblzma-dev libffi-dev libjpeg-dev libncurses5-dev libnss3-dev libreadline-dev wget pgplot5
+
+    apt-get -y --no-install-recommends install python3.10 python3-pip 
+    python3.10 -m pip install pip
+    apt-get -y --no-install-recommends install libgeos++-dev libgeos3.10.2 libgeos-c1v5 libgeos-dev libgeos-doc
+    apt-get -y --no-install-recommends install python3.10-dev libhdf5-dev libsuitesparse-dev cargo rustc proj-bin
+
+    update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1000
+    update-alternatives --set python /usr/bin/python3.10
+
+    export PYTHONPATH=/usr/lib/python3.10/site-packages:/usr/local/lib/python3.10/dist-packages:/usr/lib/python3/dist-packages:/usr/lib/python3.10/lib-dynload:/usr/lib/python3.10
+    
+    cd /
+    mkdir -p /var/tmp && wget -q -nc --no-check-certificate -P /var/tmp http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-3.47.tar.gz
+    mkdir -p /var/tmp && tar -x -f /var/tmp/cfitsio-3.47.tar.gz -C /var/tmp -z
+    cd /var/tmp/cfitsio-3.47 &&   ./configure --prefix=/usr/local --enable-reentrant --enable-sse2
+    make -j$(nproc)
+    make -j$(nproc) install
+    rm -rf /var/tmp/cfitsio-3.47 /var/tmp/cfitsio-3.47.tar.gz
+    cd -
+
+    python3.10 -m pip install pip setuptools setuptools_rust wheel
+    python3.10 -m pip install Cython
+    python3.10 -m pip install numpy cryptography
+    
+    python3.10 -m pip install matplotlib pandas jupyter
+    python3.10 -m pip install --upgrade nbconvert
+    python3.10 -m pip install extension_helpers
+    python3.10 -m pip install astropy
+
+    python3.10 -m pip install pkgconfig 
+    python3.10 -m pip install --no-binary=h5py h5py 
+    
+    python3.10 -m pip install pybind11 pythran ephem
+    python3.10 -m pip install scipy healpy scikit-sparse
+
+    python3.10 -m pip install jplephem corner
+    python3.10 -m pip install git+https://github.com/golamshaifullah/acor.git@master
+    python3.10 -m pip install git+https://github.com/jellis18/PTMCMCSampler@master
+    python3.10 -m pip install -U setuptools setuptools_scm==3.2.0 pep517
+    python3.10 -m pip install -U emcee
+
+    #tempo2
+    rm -rf /tmp/tempo2
+    rm -rf /var/tmp/tempo2
+    
+    cd /
+    mkdir -p /var/tmp && cd /var/tmp && git clone https://bitbucket.org/psrsoft/tempo2.git /tmp/tempo2 && cd -
+    cd /tmp/tempo2
+    ./bootstrap
+    cd /tmp/tempo2 && ./configure --prefix=${TEMPO2} --with-tempo2-plug-dir=${TEMPO2}/plugins --enable-static --with-fftw3-dir=/usr/local/fftw --enable-shared --with-pic --x-libraries=/usr/lib/x86_64-linux-gnu F77=gfortran
+    make -j$(nproc)
+    make -j$(nproc) install
+    make -j$(nproc) plugins-install
+    cp -r T2runtime/* ${TEMPO2}
+    rm -rf /tmp/tempo2
+    cd /
+    
+    python3.10 -m pip install git+https://github.com/nanograv/PINT@master
+    python3.10 -m pip install git+https://github.com/vallis/libstempo@master
+    python3.10 -m pip install git+https://github.com/nanograv/enterprise@master
+    python3.10 -m pip install git+https://github.com/nanograv/enterprise_extensions@master
+    python3.10 -m pip install git+https://github.com/nanograv/timing_analysis@main
+
+    apt-get clean
+    apt-get -y autoremove
+
+    ## in lieu of real tests; and to plug in the 'latest' astropy cache at build time
+    python -c "from astropy.time import Time; t=Time.now(); t.ut1; from astropy.utils.data import get_pkg_data_contents; get_pkg_data_contents(\"coordinates/sites-un-ascii\"); from astropy.utils.iers import IERS_B_URL, IERS_B; from astropy.utils.data import download_file; IERS_B.open(download_file(IERS_B_URL, cache=True))[\"year\",\"month\",\"day\"][-3:]; from astropy.utils import iers; iers.conf.auto_max_age = None"
+    python -c "from enterprise.pulsar import Pulsar"
+    ls $(python -c "from astropy.config import get_config_dir; print(get_config_dir())")
+   
+
+%runscript
+    exec "$@"
