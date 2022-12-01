@@ -1,4 +1,4 @@
-name: Verify the Conda Environment
+name: 'Conda Env Verified (Ubuntu & MacOS)'
 
 on: [push]
 
