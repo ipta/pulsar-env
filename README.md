@@ -2,7 +2,7 @@
 
 This repository offers a centeralized location for the IPTA Pulsar Timing & Data Combination Teams' environment.
 
-## Installation of the Conda Environments
+## Installation of the Conda Environment
 
 Please note, we highly encourage using a fresh install of [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge) over a default install of Anaconda/Miniconda. If you must use an Anaconda/Miniconda installation, from a fresh environment install the [Mamba Environment & Package Handler](https://github.com/mamba-org/mamba) via `conda install -c conda-forge mamba`.
 
