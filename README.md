@@ -1,6 +1,12 @@
+![Conda Env Test](https://github.com/IPTA/pulsar-env/actions/workflows/test_CondaEnv.yml/badge.svg)
+
 # Pulsar Timing Environments
 
 This repository offers a centeralized location for the IPTA Pulsar Timing & Data Combination Teams' environment.
+
+Currently, this repository presents the following:
+- An Anaconda Environment for Pulsar Science (`anaconda_env.yml`)
+- Singularity/Apptainer Container for HPC Resources (`containers/Singularity`)
 
 ## Installation of the Conda Environment
 
