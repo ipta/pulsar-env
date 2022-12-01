@@ -24,5 +24,5 @@ jobs:
         conda install -c conda-forge mamba
     - name: Install Conda Environment
       run: |
-        conda env install --file anaconda-env.yml
+        conda env create --file anaconda-env.yml
         conda activate IPTA_Env
