@@ -1,14 +1,15 @@
-name: 'Singularity Build (Ubuntu)'
+name: 'Apptainer Build (Ubuntu)'
 
-on: [push]
+#on: [push]
 
-#on: 
-#  push:
-#    paths:
-#      - 'containers/Singularity'
+on: 
+  push:
+    paths:
+      - 'containers/Singularity'
+      - '.github/workflows/*.yml'
 
 jobs:
-  build-conda-env:
+  build-apptainer-image:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
