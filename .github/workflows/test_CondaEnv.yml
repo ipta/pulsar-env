@@ -1,6 +1,9 @@
 name: 'Conda Env Verified (Ubuntu & MacOS)'
 
-on: [push]
+on: 
+  push:
+    paths:
+      - '*_env.yml'
 
 jobs:
   build-conda-env:

@@ -1,4 +1,5 @@
 ![Conda Env Test](https://github.com/IPTA/pulsar-env/actions/workflows/test_CondaEnv.yml/badge.svg)
+![Apptainer Build (Ubuntu)](https://github.com/IPTA/pulsar-env/actions/workflows/test_Singularity.yml/badge.svg)
 
 # Pulsar Timing Environments
 
