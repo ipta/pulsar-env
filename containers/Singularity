@@ -113,7 +113,7 @@ From: ubuntu:22.04
     python3.10 -m pip install git+https://github.com/vallis/libstempo@master
     python3.10 -m pip install git+https://github.com/nanograv/enterprise@master
     python3.10 -m pip install git+https://github.com/nanograv/enterprise_extensions@master
-    python3.10 -m pip install git+https://github.com/nanograv/timing_analysis@main
+    python3.10 -m pip install git+https://github.com/nanograv/pint_pal@main
 
     apt-get clean
     apt-get -y autoremove
