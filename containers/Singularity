@@ -52,7 +52,7 @@ From: ubuntu:22.04
     apt-get -y --no-install-recommends install build-essential wget cmake make libfftw3* zlib1g-dev libblas3 libblas-dev liblapack3 liblapack-dev git # gcc-7 g++-7 g++-8 gcc-8
     apt-get -y --no-install-recommends install gfortran dpkg-dev libc6-dev libc-dev sed tmux emacs-nox vim nano libgsl27 libgslcblas0 libgsl-dev 
     apt-get -y --no-install-recommends install libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev liblzma-dev libffi-dev libjpeg-dev libncurses5-dev libnss3-dev libreadline-dev wget pgplot5
-    apt-get -y --no-install-recommends install pdflatex pdftk latex2html wkhtmltopdf
+    apt-get -y --no-install-recommends install pdftk latex2html wkhtmltopdf
     apt-get -y --no-install-recommends install python3.10 python3-pip 
     python3.10 -m pip install pip
     apt-get -y --no-install-recommends install libgeos++-dev libgeos3.10.2 libgeos-c1v5 libgeos-dev libgeos-doc
@@ -92,6 +92,7 @@ From: ubuntu:22.04
     python3.10 -m pip install git+https://github.com/jellis18/PTMCMCSampler@master
     python3.10 -m pip install -U setuptools setuptools_scm==3.2.0 pep517
     python3.10 -m pip install -U emcee
+    python3.10 -m pip install -U pdflatex
 
     #tempo2
     rm -rf /tmp/tempo2
