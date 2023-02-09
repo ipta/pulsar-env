@@ -64,7 +64,6 @@ dependencies:
   - psrqpy
   - libstempo
   - pint-pulsar>=0.9
-  - openmpi
   - mpi4py
   - enterprise-pulsar
   - enterprise_outliers
