@@ -11,6 +11,7 @@ dependencies:
   - fftw>=3.0.0
   - cfitsio
   - glib>=2.0.0
+  - gcc>=9.0.0
   - jupyter
   - ca-certificates
   - certifi
@@ -76,5 +77,6 @@ dependencies:
   - pymultinest>=2.11
   - acor>=1.1.1
   - pypulse>=0.1.1
+  - gitpython
   - pip:
     - git+https://github.com/pennucci/PulsePortraiture.git@py3
