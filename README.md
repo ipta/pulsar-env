@@ -11,7 +11,9 @@ Currently, this repository presents the following:
 
 ## Installation of the Conda Environment
 
-Please note, we highly encourage using a fresh install of [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge) over a default install of Anaconda/Miniconda. If you must use an Anaconda/Miniconda installation, from a fresh environment install the [Mamba Environment & Package Handler](https://github.com/mamba-org/mamba) via `conda install -c conda-forge mamba`.
+Please note, we highly encourage using a fresh install of [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge) or [MicroMamba](https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html)over a default install of Anaconda/Miniconda. If you must use an Anaconda/Miniconda installation, from a fresh environment install the [Mamba Environment & Package Handler](https://github.com/mamba-org/mamba) via `conda install -c conda-forge mamba`.
+
+**Note:** As of `conda` version 22.11, `libmamba` can be used as a solver to speed up basic Anaconda installs (though there are growing pains). You can find out more [at the official posting](https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community).
 
 To install this environment in your flavor of Anaconda, proceed through the following steps:
   1. Clone this directory: `git clone https://github.com/ipta/pulsar-env.git`
