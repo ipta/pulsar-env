@@ -6,7 +6,6 @@ on:
   push:
     paths:
       - 'containers/Singularity'
-      - '.github/workflows/*.yml'
 
 jobs:
   build-apptainer-image:
