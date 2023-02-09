@@ -22,9 +22,11 @@ jobs:
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
-    - name: Add Mamba to Conda Base Environment
+    - name: Add libMamba Solver to Conda Base Environment
       run: |
-        conda update conda
+        conda update -n base conda
+        conda install -n base conda-libmamba-solver
+        conda config --set solver libmamba
     - name: Install Conda Environment
       run: |
         conda env create --file anaconda-env.yml
