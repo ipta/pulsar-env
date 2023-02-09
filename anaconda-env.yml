@@ -1,8 +1,8 @@
 name: IPTA_Env
 channels:
-  - demorest
   - conda-forge
   - defaults
+  - demorest
 dependencies:
   - python=3.9
   - pip
@@ -69,10 +69,10 @@ dependencies:
   - astroquery
   - pandas
   - pgplot
+  - pint-pal>=0.1.0
+  - pymultinest>=2.11
   - pip:
     - acor>=1.1.1
-    - pymultinest>=2.11
     - pypulse>=0.1.1
-    - pint-pal>=0.1.0
     - git+https://github.com/nanograv/holodeck.git
     - git+https://github.com/pennucci/PulsePortraiture.git@py3
