@@ -8,9 +8,6 @@ dependencies:
   - pip
   - mamba
   - mkl
-  - fftw>=3.0.0
-  - cfitsio
-  - glib>=2.0.0
   - jupyter
   - ca-certificates
   - certifi
