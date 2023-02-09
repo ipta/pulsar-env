@@ -20,4 +20,4 @@ jobs:
         environment-file: false
     - name: Install Conda Environment
       run: |
-        conda env create --file anaconda-env.yml
+        mamba env create --file anaconda-env.yml
