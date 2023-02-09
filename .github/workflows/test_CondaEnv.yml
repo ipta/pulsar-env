@@ -24,7 +24,7 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Add Mamba to Conda Base Environment
       run: |
-        conda install -c conda-forge mamba
+        conda update conda
     - name: Install Conda Environment
       run: |
-        mamba env create --file anaconda-env.yml
+        conda env create --file anaconda-env.yml
