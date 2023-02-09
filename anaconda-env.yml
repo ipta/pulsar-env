@@ -6,7 +6,6 @@ channels:
 dependencies:
   - python=3.9
   - pip
-  - mamba
   - mkl
   - jupyter
   - ca-certificates
@@ -60,8 +59,7 @@ dependencies:
   - psrchive
   - psrqpy
   - libstempo
-  - pint-pulsar
-  - openmpi
+  - pint-pulsar>=0.9
   - mpi4py
   - enterprise-pulsar
   - enterprise_outliers
@@ -71,8 +69,8 @@ dependencies:
   - pgplot
   - pint-pal>=0.1.0
   - pymultinest>=2.11
+  - acor>=1.1.1
+  - pypulse>=0.1.1
+  - gitpython
   - pip:
-    - acor>=1.1.1
-    - pypulse>=0.1.1
-    - git+https://github.com/nanograv/holodeck.git
     - git+https://github.com/pennucci/PulsePortraiture.git@py3

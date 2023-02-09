@@ -1,9 +1,9 @@
 name: 'Conda Env Verified (Ubuntu & MacOS)'
 
-on: 
-  push:
+on:
+  pull_request:
     paths:
-      - '*_env.yml'
+      - '**-env.yml'
 
 jobs:
   build-conda-env:
@@ -15,16 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.9
-      uses: actions/setup-python@v3
+      uses: mamba-org/provision-with-micromamba@main
       with:
-        python-version: 3.9
-    - name: Add Conda to System Path
-      run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Add Mamba to Conda Base Environment
-      run: |
-        conda install -c conda-forge mamba
+        environment-file: false
     - name: Install Conda Environment
       run: |
-        mamba env create --file anaconda-env.yml
+        micromamba env create --file anaconda-env.yml
