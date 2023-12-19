@@ -1,4 +1,4 @@
-name: IPTA_Env
+name: IPTA_Env_new
 channels:
   - conda-forge
   - defaults
