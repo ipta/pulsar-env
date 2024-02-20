@@ -91,7 +91,7 @@ From: ubuntu:22.04
     python3.10 -m pip install git+https://github.com/golamshaifullah/acor.git@master
     python3.10 -m pip install git+https://github.com/jellis18/PTMCMCSampler@master
     python3.10 -m pip install -U setuptools setuptools_scm==3.2.0 pep517
-    python3.10 -m pip install -U emcee
+    python3.10 -m pip install -U emcee chainconsumer
     python3.10 -m pip install -U pdflatex
 
     #tempo2
@@ -109,13 +109,18 @@ From: ubuntu:22.04
     cp -r T2runtime/* ${TEMPO2}
     rm -rf /tmp/tempo2
     cd /
+
+    python3.10 -m pip install git+https://github.com/PolyChord/PolyChordLite@master
     
     python3.10 -m pip install git+https://github.com/nanograv/PINT@master
     python3.10 -m pip install git+https://github.com/vallis/libstempo@master
-    python3.10 -m pip install git+https://github.com/nanograv/enterprise@master
-    python3.10 -m pip install git+https://github.com/nanograv/enterprise_extensions@master
+    # python3.10 -m pip install git+https://github.com/nanograv/enterprise@master
+    python3.10 -m pip install git+https://github.com/nanograv/enterprise@dev
+    python3.10 -m pip install git+https://github.com/nanograv/enterprise_extensions@dcbusyweek
     python3.10 -m pip install git+https://github.com/nanograv/pint_pal@main
-
+    python3.10 -m pip install git+https://github.com/nanograv/enterprise@dev
+    python3.10 -m pip install git+https://github.com/nanograv/enterprise_extensions@dcbusyweek
+    
     apt-get clean
     apt-get -y autoremove
 
