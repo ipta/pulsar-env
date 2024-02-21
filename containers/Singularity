@@ -58,6 +58,8 @@ From: ubuntu:22.04
     apt-get -y --no-install-recommends install libgeos++-dev libgeos3.10.2 libgeos-c1v5 libgeos-dev libgeos-doc
     apt-get -y --no-install-recommends install python3.10-dev libhdf5-dev libsuitesparse-dev cargo rustc proj-bin
 
+    apt-get install -y openmpi-bin libopenmpi-dev # OpenMPI for PolyChord sampler
+
     update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1000
     update-alternatives --set python /usr/bin/python3.10
 
