@@ -4,6 +4,7 @@ RUN micromamba install --yes --name base\
   -c defaults\
   -c demorest\
   python=3.9\
+  git \
   pip\
   mkl\
   jupyter\
