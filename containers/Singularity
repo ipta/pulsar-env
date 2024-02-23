@@ -59,6 +59,8 @@ From: ubuntu:22.04
     apt-get -y --no-install-recommends install libgeos++-dev libgeos3.10.2 libgeos-c1v5 libgeos-dev libgeos-doc
     apt-get -y --no-install-recommends install python3.10-dev libhdf5-dev libsuitesparse-dev cargo rustc proj-bin
 
+    apt-get install -y openmpi-bin libopenmpi-dev # OpenMPI for PolyChord sampler
+
     update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1000
     update-alternatives --set python /usr/bin/python3.10
 
@@ -95,6 +97,12 @@ From: ubuntu:22.04
     python3.10 -m pip install -U emcee chainconsumer
     python3.10 -m pip install -U pdflatex
 
+    python3.10 -m pip install ipdb
+    python3.10 -m pip install tqdm
+    python3.10 -m pip install scikit-learn
+    python3.10 -m pip install bilby
+    python3.10 -m pip install mpi4py # for MPI support in PyPolyChord
+
     #tempo2
     rm -rf /tmp/tempo2
     rm -rf /var/tmp/tempo2
@@ -121,7 +129,8 @@ From: ubuntu:22.04
     python3.10 -m pip install git+https://github.com/nanograv/pint_pal@main
     python3.10 -m pip install git+https://github.com/nanograv/enterprise@dev
     python3.10 -m pip install git+https://github.com/nanograv/enterprise_extensions@dcbusyweek
-    
+    python3.10 -m pip install git+https://github.com/bvgoncharov/enterprise_warp
+
     apt-get clean
     apt-get -y autoremove
 
