@@ -8,7 +8,7 @@ on: [push]
 #      - 'containers/Dockerfile'
 
 env:
-  TEST_TAG: ipta-env.docker:test
+  TEST_TAG: ipta-env:test
 
 jobs:
   build-apptainer-image:
@@ -26,6 +26,7 @@ jobs:
         with:
           context: "{{defaultContext}}:containers"
           push: false
+          load: true
           tags: ${{ env.TEST_TAG }}
       - name: Test Docker
         run: |
