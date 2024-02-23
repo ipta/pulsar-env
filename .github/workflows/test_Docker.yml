@@ -7,6 +7,9 @@ on: [push]
 #    paths:
 #      - 'containers/Dockerfile'
 
+env:
+  TEST_TAG: ipta-env.docker:test
+
 jobs:
   build-apptainer-image:
     runs-on: ${{ matrix.os }}
