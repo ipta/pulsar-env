@@ -1,0 +1,29 @@
+name: 'Docker Build (Ubuntu)'
+
+on: [push]
+
+#on: 
+#  push:
+#    paths:
+#      - 'containers/Dockerfile'
+
+jobs:
+  build-apptainer-image:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+      max-parallel: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Test Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: containers/Dockerfile
+          push: false
+          tags: ${{ env.TEST_TAG }}
+      - name: Test Docker
+        run: |
+          docker run --rm ${{ env.TEST_TAG }}
