@@ -78,7 +78,7 @@ From: ubuntu:22.04
     python3.10 -m pip install Cython
     python3.10 -m pip install numpy cryptography
     
-    python3.10 -m pip install matplotlib pandas jupyter
+    python3.10 -m pip install matplotlib pandas jupyter pyarrow
     python3.10 -m pip install --upgrade nbconvert
     python3.10 -m pip install extension_helpers
     python3.10 -m pip install astropy
@@ -129,6 +129,10 @@ From: ubuntu:22.04
     python3.10 -m pip install git+https://github.com/nanograv/enterprise@dev
     python3.10 -m pip install git+https://github.com/nanograv/enterprise_extensions@dcbusyweek
     python3.10 -m pip install git+https://github.com/bvgoncharov/enterprise_warp
+    python3.10 -m pip install git+https://github.com/nanograv/fastshermanmorrison.git
+
+    python3.10 -m pip install la-forge
+    python3.10 -m pip install git+https://github.com/NihanPol/MAPS.git@main
 
     apt-get clean
     apt-get -y autoremove
