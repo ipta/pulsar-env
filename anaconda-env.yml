@@ -1,7 +1,6 @@
 name: IPTA_Env
 channels:
   - conda-forge
-  - defaults
   - demorest
 dependencies:
   - python=3.11
