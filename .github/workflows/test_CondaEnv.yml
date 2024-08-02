@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - '**-env.yml'
+      - '.github/workflows/**'
 
 jobs:
   build-conda-env:
@@ -18,10 +19,11 @@ jobs:
       uses: mamba-org/provision-with-micromamba@main
       with:
         environment-file: false
-    - name: Install Conda Environment
+    - name: Install Conda Environment on MacOS
     - if: matrix.os == 'macos-latest'
       run: |
         micromamba env create --platform osx-64 --file anaconda-env.yml
+    - name: Install Conda Environment on Ubuntu
     - if: matrix.os == 'ubuntu-latest'
       run: |
         micromamba env create --file anaconda-env.yml
