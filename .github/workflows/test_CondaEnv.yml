@@ -1,4 +1,4 @@
-name: 'Test Conda Environment File'
+name: 'Test Conda Environment File with Miniforge (Including M-series)'
 
 on:
   pull_request:
@@ -12,36 +12,48 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-      max-parallel: 5
+        include:
+          - os: macos-latest
+            arch: osx-arm64 # M-series
+          - os: macos-latest
+            arch: osx-64    # Intel
+          - os: ubuntu-latest
+            arch: linux-64
+        max-parallel: 5
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Set up Micromamba
-        uses: mamba-org/setup-micromamba@v2
-        with:
-          micromamba-version: "latest"
-          cache-downloads: true
+      - name: Install Miniforge
+        shell: bash
+        run: |
+          if [ $RUNNER_OS == "macOS" ]; then
+            if [ "${{ matrix.arch }}" == "osx-arm64" ]; then
+              MINIFORGE_URL="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh"
+            else
+              MINIFORGE_URL="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh"
+            fi
+          else
+            MINIFORGE_URL="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
+          fi
+          curl -L $MINIFORGE_URL -o Miniforge3.sh
+          bash Miniforge3.sh -b -p $HOME/miniforge
+          echo "$HOME/miniforge/bin" >> $GITHUB_PATH
+          source $HOME/miniforge/bin/activate
 
       - name: Validate Conda Environment File
+        shell: bash
         run: |
-          # Dry run to test the environment file
-          if [ $RUNNER_OS == "macOS" ]; then
-            micromamba env create --yes --platform osx-64 --file anaconda-env.yml --dry-run
-          else
-            micromamba env create --yes --file anaconda-env.yml --dry-run
-          fi
+          conda env create --name test_env --file anaconda-env.yml --dry-run --force
 
-      - name: Create Conda Environment (Full Test)
+      - name: Create and Activate Environment
+        shell: bash
         run: |
-          if [ $RUNNER_OS == "macOS" ]; then
-            micromamba env create --yes --name test_env --platform osx-64 --file anaconda-env.yml
-          else
-            micromamba env create --yes --name test_env --file anaconda-env.yml
-          fi
-          micromamba activate test_env
+          conda env create --name test_env --file anaconda-env.yml
+          source activate test_env
 
       - name: Test Environment Installation
+        shell: bash
         run: |
           python --version
           conda list
