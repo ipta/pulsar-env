@@ -1,4 +1,4 @@
-name: 'Conda Env Verified (Ubuntu & MacOS)'
+name: 'Test Conda Environment File'
 
 on:
   pull_request:
@@ -7,23 +7,41 @@ on:
       - '.github/workflows/**'
 
 jobs:
-  build-conda-env:
+  validate-conda-env:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
       max-parallel: 5
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.11
-      uses: mamba-org/setup-micromamba@v1
-      with:
-        environment-file: false
-    - name: Install Conda Environment on MacOS
-      if: matrix.os == 'macos-latest'
-      run: |
-        micromamba env create --platform osx-64 --file anaconda-env.yml
-    - name: Install Conda Environment on Ubuntu
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        micromamba env create --file anaconda-env.yml
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Micromamba
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          micromamba-version: "latest"
+          cache-downloads: true
+
+      - name: Validate Conda Environment File
+        run: |
+          # Dry run to test the environment file
+          if [ $RUNNER_OS == "macOS" ]; then
+            micromamba env create --yes --platform osx-64 --file anaconda-env.yml --dry-run
+          else
+            micromamba env create --yes --file anaconda-env.yml --dry-run
+          fi
+
+      - name: Create Conda Environment (Full Test)
+        run: |
+          if [ $RUNNER_OS == "macOS" ]; then
+            micromamba env create --yes --name test_env --platform osx-64 --file anaconda-env.yml
+          else
+            micromamba env create --yes --name test_env --file anaconda-env.yml
+          fi
+          micromamba activate test_env
+
+      - name: Test Environment Installation
+        run: |
+          python --version
+          conda list
