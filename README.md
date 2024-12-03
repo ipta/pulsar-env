@@ -21,6 +21,10 @@ To install this environment in your flavor of Anaconda, proceed through the foll
   3. Using `mamba`, install the environment: `mamba env create -f anaconda-env.yml`
   4. Activate the environment: `mamba activate IPTA_Env`
 
+## MacOS installation
+Same as above; but try with: 
+  1. `micromamba env create --platform osx-64 --file anaconda-env.yml` 
+
 ### Important Note Regarding the Included OpenMPI
 For Linux 64, Open MPI is built with CUDA awareness but this support is disabled by default. To enable it, please set the environment variable `OMPI_MCA_opal_cuda_support=true` before launching your MPI processes. Equivalently, you can set the MCA parameter in the command line: `mpiexec --mca opal_cuda_support 1 ...`
  
