@@ -58,7 +58,6 @@ dependencies:
   - pytest-xdist
   - psrchive
   - psrqpy
-  - libstempo
   - pint-pulsar>=0.9
   - mpi4py
   - enterprise-pulsar
@@ -74,6 +73,7 @@ dependencies:
   - gitpython
   - bilby
   - pip:
+    - git+https://github.com/vallis/libstempo.git@master
     - git+https://github.com/PolyChord/PolyChordLite@master
     - git+https://github.com/pennucci/PulsePortraiture.git@py3
     - git+https://github.com/bvgoncharov/enterprise_warp
