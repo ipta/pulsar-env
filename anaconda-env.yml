@@ -74,9 +74,9 @@ dependencies:
   - gitpython
   - bilby
   - pip:
-    - git+https://github.com/PolyChord/PolyChordLite@master
+    # - git+https://github.com/PolyChord/PolyChordLite@master
     - git+https://github.com/pennucci/PulsePortraiture.git@py3
     - git+https://github.com/bvgoncharov/enterprise_warp
     - git+https://github.com/nanograv/pint_pal@main
-    - git+https://github.com/nanograv/enterprise@dev
-    - git+https://github.com/nanograv/enterprise_extensions@dcbusyweek
+    # - git+https://github.com/nanograv/enterprise@dev
+    # - git+https://github.com/nanograv/enterprise_extensions@dcbusyweek
